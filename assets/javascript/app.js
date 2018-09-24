@@ -1,7 +1,11 @@
 $(document).ready(function() {
     let wireSet= [];
 
-    var game = {
+    var actions = {
+        generateWire: function(min, max) {
+            return Math.floor(Math.random()*(max-min+1)+min);
+        },
+
         addWire: function(wireColor) {
             wireSet.push({
             wireColor: wireColor,
@@ -47,41 +51,61 @@ $(document).ready(function() {
             }
         },
     };
+    var game = {
+        createWires: function(){
+            for (let index = 0; index < 4; index++) {
+                var value = actions.generateWire(1,4);
+                var wires = $('<input type="button"/>').val(value);
+                actions.addWire(wires);
+                $('.test').append(wires);
+            };
+            // return wireSet;
+        },
+
+        defineOrder: function(){
+            
+        },
+
+        winGame: function() {
+
+        },
+
+        loseGame: function(){
+
+        },
+
+        restartGame: function(){
+
+        },
+
+
+    }
+    console.log(game.createWires());
 
     var handlers = {
-        addWire: $('.addWire').click(function() {
-            var inputWire = $('#inputWire').val();
-            game.addWire(inputWire);
-            inputWire.value = '';
-            view.displayWires();
+        deleteWire: $('input').click(function() {
+            console.log('button clicked');
+            this.remove();
         }),
 
-        deleteWire: $('.deleteWire').click(function() {
-            var deleteWirePosition = $('#deleteWirePosition').val();
-            game.deleteWire(deleteWirePosition);
-            deleteWirePosition = '';
-            view.displayWires();
-        }),
+        // changeWire: $('.changeWire').click(function() {
+        //     var changeWirePosition = $('#changeWirePosition').val();
+        //     var changeWireColor = $('#changeWireColor').val();
+        //     actions.changeWire(changeWirePosition, changeWireColor);
+        //     changeWirePosition.value = '';
+        //     changeWireColor.value = '';
+        //     view.displayWires();
+        // }),
 
-        changeWire: $('.changeWire').click(function() {
-            var changeWirePosition = $('#changeWirePosition').val();
-            var changeWireColor = $('#changeWireColor').val();
-            game.changeWire(changeWirePosition, changeWireColor);
-            changeWirePosition.value = '';
-            changeWireColor.value = '';
-            view.displayWires();
-        }),
+        // toggleCompleted: $('.toggleCompleted').click(function() {
+        //     var toggleCompletedPosition = $('#toggleCompletedPosition').val();
+        //     actions.toggleCompleted(toggleCompletedPosition);
+        //     toggleCompletedPosition.value = '';
+        //     view.displayWires();
+        // }),
 
-        toggleCompleted: $('.toggleCompleted').click(function() {
-            var toggleCompletedPosition = $('#toggleCompletedPosition').val();
-            game.toggleCompleted(toggleCompletedPosition);
-            toggleCompletedPosition.value = '';
-            view.displayWires();
-        }),
-
-        toggleAll: $('.toggleAll').click(function() {
-            game.toggleAll();
-            view.displayWires();
+        startGame: $('.startGame').click(function() {
+            game.createWires();
         }),  
     };
 
